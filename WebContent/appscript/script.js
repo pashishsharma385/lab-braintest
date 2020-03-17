@@ -1,3 +1,4 @@
+// QUESTIONS
 
 const questions = [
   {
@@ -82,6 +83,8 @@ const questions = [
 						  }
 ]
 
+/*Declare all the variables outside the scope of the function*/
+
 let currentQuestion = 0;
 const form=document.getElementById("myForm");
 const totalQuestions =questions.length;
@@ -94,8 +97,10 @@ const answers=document.getElementsByName("option");
 const hiddenSelectedAnswers =  document.getElementById("selectedOptions");
 const selectedAnswers=[];
 
+//Function to generate question 
 function generateQuestions (index) {
-
+	//console.log("Entering generate question");
+    //Select each question by passing it a particular index
     const question = questions[index];
    questionEl.innerHTML = `${index + 1}. ${question.question}`
 
@@ -105,7 +110,8 @@ function generateQuestions (index) {
 function loadNextQuestion () {
 	console.log("Load next question");
    var selectedOption = document.querySelector('input[type="radio"]:checked');
-
+   
+    //Check if there is a radio input checked
     if(!selectedOption) {
         alert('Please select your answer!');
         return;
@@ -122,13 +128,14 @@ for(var i=0;i<answers.length;i++)
     console.log(hiddenSelectedAnswers.value);
    currentQuestion++;
 
+        //once finished clear checked
         selectedOption.checked = false;
-
+    //If quiz is on the final question
     if(currentQuestion == totalQuestions - 1) {
     	console.log("entered finish");
         nextButton.textContent = 'Finish';	
     }
-
+  //If the quiz is finished then we hide the questions container and show the results 
    if(currentQuestion == totalQuestions) {
        	
        console.log("call servlet action");
@@ -138,15 +145,16 @@ for(var i=0;i<answers.length;i++)
 
    generateQuestions(currentQuestion);
 }
-
+//
+//Function to load previous question
 function loadPreviousQuestion() {
-
+   //Decrement questions index
    currentQuestion--;
 
     generateQuestions(currentQuestion);
 }
 
-
+//Fuction to reset and restart the quiz;
 function finishQuiz(e) {
     if(e.target.matches('button')) {
     	console.log("call servlet action");
